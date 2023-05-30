@@ -1,10 +1,25 @@
-function repeat<T>(element: T, length: number): T[] {
-  const result: T[] = [];
-  for (let i = 0; i < length; i++) {
-    result.push(element);
+class User {
+  readonly name: string;
+  readonly age: number;
+
+  constructor(name: string, age: number) {
+    if (name === "") {
+      throw new Error("名前は空にできません");
+    }
+    this.name = name;
+    this.age = age;
   }
-  return result;
+
+  getMessage(message: string): string {
+    return `${this.name} (${this.age}) [${message}]`;
+  }
 }
 
-console.log(repeat<string>("a", 5));
-console.log(repeat<number>(123, 3));
+function createUser(name: string, age: number) {
+  return (message: string) => {
+    return `${name} (${age}) [${message}]`;
+  };
+}
+
+const getMessage = createUser("kento", 25);
+console.log(getMessage("こんにちは"));
