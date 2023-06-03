@@ -1,18 +1,6 @@
-// 場合によって返り値の型が異なる関数はジェネリクスで表現する
-// extends keyofの制約がないと、T[K]のlookup型が正しいかどうかわからない
-function get<T, K extends keyof T>(obj: T, key: K): T[K] {
-  return obj[key];
-}
+// 配列リテラルの型推論結果を配列型ではなくタプル型にする
+// オブジェクトリテラルから推論されるオブジェクト型は全てのプロパティがreadonlyになる
+const names1 = ["uhyo", "John", "Taro"];
+const names2 = ["uhyo", "John", "Taro"] as const;
 
-type Human = {
-  name: string;
-  age: number;
-};
-
-const uhyo: Human = {
-  name: "uhyo",
-  age: 26,
-};
-
-const uhyoName = get(uhyo, "name");
-const uhyoAge = get(uhyo, "age");
+type Name = (typeof names2)[number];
