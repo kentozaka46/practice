@@ -1,16 +1,18 @@
-const mmConversionTable = {
-  mm: 1,
-  cm: 10,
-  m: 1e3,
-  km: 1e6,
+// 場合によって返り値の型が異なる関数はジェネリクスで表現する
+// extends keyofの制約がないと、T[K]のlookup型が正しいかどうかわからない
+function get<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+type Human = {
+  name: string;
+  age: number;
 };
 
-function convertUnits(value: number, unit: keyof typeof mmConversionTable) {
-  // "mm", "m", "km"
-  const mmValue = value * mmConversionTable[unit];
-  return {
-    mm: mmValue,
-    m: mmValue / 1e3,
-    km: mmValue / 1e6,
-  };
-}
+const uhyo: Human = {
+  name: "uhyo",
+  age: 26,
+};
+
+const uhyoName = get(uhyo, "name");
+const uhyoAge = get(uhyo, "age");
