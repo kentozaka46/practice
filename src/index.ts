@@ -1,9 +1,16 @@
-type Human = {
-  name: string;
-  age: number;
+const mmConversionTable = {
+  mm: 1,
+  cm: 10,
+  m: 1e3,
+  km: 1e6,
 };
 
-type HumanKeys = keyof Human;
-
-let key: HumanKeys = "name";
-key = "age";
+function convertUnits(value: number, unit: keyof typeof mmConversionTable) {
+  // "mm", "m", "km"
+  const mmValue = value * mmConversionTable[unit];
+  return {
+    mm: mmValue,
+    m: mmValue / 1e3,
+    km: mmValue / 1e6,
+  };
+}
