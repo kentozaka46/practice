@@ -1,25 +1,21 @@
-class User {
-  readonly name: string;
-  readonly age: number;
+type Human = {
+  type: "human";
+  name: string;
+  age: number;
+};
 
-  constructor(name: string, age: number) {
-    if (name === "") {
-      throw new Error("名前は空にできません");
-    }
-    this.name = name;
-    this.age = age;
-  }
-
-  getMessage(message: string): string {
-    return `${this.name} (${this.age}) [${message}]`;
-  }
-}
-
-function createUser(name: string, age: number) {
-  return (message: string) => {
-    return `${name} (${age}) [${message}]`;
+// 同じことを2度書かないためにlookup型を使っている
+function setAge(human: Human, age: Human["age"]) {
+  return {
+    ...human,
+    age,
   };
 }
 
-const getMessage = createUser("kento", 25);
-console.log(getMessage("こんにちは"));
+const uhyo: Human = {
+  type: "human",
+  name: "uhyo",
+  age: 26,
+};
+
+const uhyo2 = setAge(uhyo, 27);
