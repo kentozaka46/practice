@@ -1,10 +1,20 @@
-type RestArgs<M> = M extends "string"
-  ? [string, string]
-  : [number, number, number];
+type T = Readonly<{
+  name: string;
+  age: number;
+}>;
 
-function func<M extends "string" | "number">(mode: M, ...args: RestArgs<M>) {
-  console.log(mode, ...args);
-}
+type U = Partial<{
+  name: string;
+  age: number;
+}>;
 
-func("string", "uhyo", "hyo");
-func("number", 1, 2, 3);
+type P = Pick<
+  {
+    name: string;
+    age: number;
+  },
+  "age"
+>;
+
+type E = Extract<"uhyo" | "hyo" | 1, string>;
+type EX = Exclude<"uhyo" | "hyo" | 1, string>;
