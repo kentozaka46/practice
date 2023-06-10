@@ -1,20 +1,9 @@
-type T = Readonly<{
-  name: string;
-  age: number;
-}>;
+const p = new Promise<number>((resolve) => {
+  setTimeout(() => {
+    resolve(100);
+  }, 3000);
+});
 
-type U = Partial<{
-  name: string;
-  age: number;
-}>;
-
-type P = Pick<
-  {
-    name: string;
-    age: number;
-  },
-  "age"
->;
-
-type E = Extract<"uhyo" | "hyo" | 1, string>;
-type EX = Exclude<"uhyo" | "hyo" | 1, string>;
+p.then((num) => {
+  console.log(num);
+});
